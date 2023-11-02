@@ -18,6 +18,20 @@ defineProps<{ isConnected:boolean }>()
         </div>
     </div>
 
+    <div class="container" v-else>
+        <div class="left">
+            <a href="../../index.html"><img src="../img/yuji.jpg" alt="logo"></a>
+            <a href="">contact me</a>
+        </div>
+        
+        <div class="right">
+            <a href="https://fr-scan.com">scan site</a>
+            <!-- <a href="https://fr-scan.com">add a discord account</a> -->
+            <a href="https://">my account</a>
+            <img src="../img/Placeholder.png" alt="">
+        </div>
+    </div>
+
 </template>
 
 <style scoped>
@@ -50,6 +64,7 @@ defineProps<{ isConnected:boolean }>()
     img {
         width: 65px;
         aspect-ratio: 1/1;
+        /* border-radius: 50%; */
     }
     
 
@@ -69,4 +84,18 @@ defineProps<{ isConnected:boolean }>()
         display: flex;
         margin-left: 30px;
     }
+
+    .right{
+        display: flex;
+        margin-right: 30px;
+        /* align-content: center; */
+    }
+
+    .right img{
+        width: 65px;
+        height: 65;
+        border-radius: 50%;
+        margin-left: 25px;
+    }
+
 </style>

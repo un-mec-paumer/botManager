@@ -10,7 +10,7 @@
     let signUp = ref(true);
     export { signUp };
     function changeSignUp() {
-        return signUp.value ? 'pass to sign in' : 'pass to sign up';
+        return signUp.value ? 'pass to sign up' : 'pass to sign in';
     }
 
 
@@ -42,7 +42,7 @@
 
 label {
 	cursor: pointer;
-	text-indent: -9999px;
+	text-indent: -999999px;
 	width: 50px;
 	height: 25px;
 	background: grey;
@@ -64,16 +64,16 @@ label:after {
 }
 
 input:checked + label {
-	background: #bada55;
+	background: #000080;
 }
 
 input:checked + label:after {
-	left: calc(100% - 5px);
-	transform: translateX(-100%);
+	left: calc(70% - 5px);
+	transform: translateX(-25%);
 }
 
 label:active:after {
-	width: 60px;
+	width: 15px;
 }
     
 
