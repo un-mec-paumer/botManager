@@ -49,7 +49,7 @@ const connected = isConnected();
 <template>
   <barreTache :is-connected="connected" />
   <div class="containerMax" v-for="sectionManga in maxSection">
-    <sectionManga v-for="manga in sectionManga" :manga="manga"/>
+    <sectionManga v-for="manga in sectionManga" :manga="manga" :isconnneced="connected "/>
   </div>
 </template>
 

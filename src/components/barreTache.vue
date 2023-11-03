@@ -14,7 +14,7 @@ defineProps<{ isConnected:boolean }>()
         <div class="right">
             <a href="https://fr-scan.com">scan site</a>
             <!-- <a href="https://fr-scan.com">add a discord account</a> -->
-            <a href="../../signIn.html">sign in</a>
+            <a href="../page/signIn.html">sign in</a>
         </div>
     </div>
 
@@ -27,7 +27,7 @@ defineProps<{ isConnected:boolean }>()
         <div class="right">
             <a href="https://fr-scan.com">scan site</a>
             <!-- <a href="https://fr-scan.com">add a discord account</a> -->
-            <a href="https://">my account</a>
+            <a href="../page/profil.html">my account</a>
             <img src="../img/Placeholder.png" alt="">
         </div>
     </div>
