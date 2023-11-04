@@ -6,6 +6,26 @@
     const { manga, isconnneced } = defineProps<{ manga: Manga, isconnneced: boolean }>();
     const sub = ref({sub:false});
     //export { sub };
+
+    const img = ref("")
+
+    fetch(api + "/mangaImg", {
+        method: "POST",
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            name: manga.name_manga
+        })
+    }).then((res) => res.json()).then((res) => {
+        // console.log(res);
+        img.value = res.signedUrl;
+    });
+
+    // console.log();
+
+
+    console.log(manga.img);
     
     if (isconnneced) {
         //const token = document.cookie.split(';').find((cookie) => cookie.includes('token'))?.split('=')[1];
@@ -73,7 +93,7 @@
 
 <template>
     <div class="container">
-        <img id="img" v-bind:src="manga.img" alt="manga">
+        <img id="img" v-bind:src="img" alt="manga">
         <h2>{{ manga.name_manga.replaceAll("-"," ") }}</h2>
         <p> {{ manga.synopsis }}</p>
         <a href="http://">read more</a>

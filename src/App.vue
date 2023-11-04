@@ -7,6 +7,7 @@ import { api } from './Api';
 
 function isConnected(){
   const token = document.cookie.split(';').find((cookie) => cookie.includes('token'));
+  //console.log(token);
   if(token){
     return true;
   }
@@ -14,6 +15,7 @@ function isConnected(){
 }
 
 const connected = isConnected();
+// console.log(connected);
 
 </script>
 
@@ -49,7 +51,7 @@ const connected = isConnected();
 <template>
   <barreTache :is-connected="connected" />
   <div class="containerMax" v-for="sectionManga in maxSection">
-    <sectionManga v-for="manga in sectionManga" :manga="manga" :isconnneced="connected "/>
+    <sectionManga v-for="manga in sectionManga" :manga="manga" :isconnneced="connected"/>
   </div>
 </template>
 

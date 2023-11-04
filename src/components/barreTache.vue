@@ -1,7 +1,42 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+    import { api } from '../Api';
+    const props = defineProps<{ isConnected:boolean }>()
 
-defineProps<{ isConnected:boolean }>()
+    //console.log(test.isConnected);
+</script>
+
+<script lang="ts">
+
+    let user = {
+        name_user: "",
+        id_user: "",
+        pp: ""
+    }
+
+    function isconnected(){
+        const token = document.cookie.split(';').find((cookie) => cookie.includes('token'));
+        //console.log(token);
+        if(token){
+            return true;
+        }
+        return false;
+    }
+
+    //console.log(isConnected());
+
+    if(isconnected()){
+        user = await fetch(api + "/getUser",{
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                token: document.cookie.split(';').find((cookie) => cookie.includes('token'))?.split('=')[1]
+            })
+        }).then((res) => res.json()).then((res) => {return res});
+
+        console.log(user);
+    }
 </script>
 
 <template>
@@ -14,7 +49,7 @@ defineProps<{ isConnected:boolean }>()
         <div class="right">
             <a href="https://fr-scan.com">scan site</a>
             <!-- <a href="https://fr-scan.com">add a discord account</a> -->
-            <a href="../page/signIn.html">sign in</a>
+            <a href="../../signIn.html">sign in</a>
         </div>
     </div>
 
@@ -27,8 +62,8 @@ defineProps<{ isConnected:boolean }>()
         <div class="right">
             <a href="https://fr-scan.com">scan site</a>
             <!-- <a href="https://fr-scan.com">add a discord account</a> -->
-            <a href="../page/profil.html">my account</a>
-            <img src="../img/Placeholder.png" alt="">
+            <a href="../../profil.html">my account</a>
+            <img v-bind:src="user.pp" alt="">
         </div>
     </div>
 

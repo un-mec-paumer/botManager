@@ -1,14 +1,12 @@
 <script setup lang="ts">
     import { api } from '../Api';
     import { ref } from 'vue';
-</script>
 
-<script lang="ts">
     
-    let connexion = ref(true)
+    const connexion = ref(true)
+    const username = ref('');
 
     function signIn(){
-        const username = document.getElementById('username') as HTMLInputElement;
         //const submit = document.getElementById('submit') as HTMLButtonElement;
         document.cookie = "";
         console.log(username.value);
@@ -34,7 +32,7 @@
                 }
                 else{
                     console.log('ok');
-                    document.cookie = 'token =' + res.token;
+                    document.cookie = 'token=' + res.token + '; expires=Thu, 18 Dec 2025 12:00:00 UTC; path=/'
                     window.location.href = "http://localhost:5173/index.html";
                 }
 
@@ -53,13 +51,13 @@
 
 
 <template>
-    <div class="container">
+    <form class="container" @submit.prevent="signIn">
         <h1>Sign In</h1>
         <label for="username">your user name on discord</label>
-        <input id="username" type="text" placeholder="Username"/>
-        <span v-if="!connexion">connected denied</span>
-        <button id="submit" @click="signIn">Sign In</button>
-    </div>
+        <input id="username" type="text" placeholder="Username" v-model="username"/>
+        <span v-if="!connexion">connection denied</span>
+        <button id="submit">Sign In</button>
+    </form>
 </template>
 
 <style scoped>
