@@ -5,6 +5,7 @@
 
     const { manga, isconnneced } = defineProps<{ manga: Manga, isconnneced: boolean }>();
     const sub = ref({sub:false});
+    const lien = ref("https://fr.scan.com/manga/" + manga.name_manga + "/");
     //export { sub };
 
     const img = ref("")
@@ -30,6 +31,9 @@
     if (isconnneced) {
         //const token = document.cookie.split(';').find((cookie) => cookie.includes('token'))?.split('=')[1];
         fetchSubData();
+    }
+    else{
+        
     }
 
     // Effectuer une opération asynchrone pour obtenir la valeur de "sub"
@@ -95,8 +99,10 @@
     <div class="container">
         <img id="img" v-bind:src="img" alt="manga">
         <h2>{{ manga.name_manga.replaceAll("-"," ") }}</h2>
+        <label for="chap">chapitre:</label>
+        <h3 id="chap">{{ manga.chapitre_manga }}</h3>
         <p> {{ manga.synopsis }}</p>
-        <a href="http://">read more</a>
+        <a :href="lien">read more</a>
 
         <button v-if="isconnneced && !sub.sub" @click="addSub">add subscride</button>
         <button v-else-if="isconnneced && sub.sub" @click="removeSub">remove subscride</button>
@@ -108,7 +114,7 @@
         display: flex;
         flex-direction: column;
         width: 360px;
-        height: 550px;
+        height: 575px;
         background-color: #d9d9d9;
         border-radius: 10px;
         margin-top: 50px;
@@ -139,7 +145,14 @@
     h2{
         font-size: 25px;
         text-align: center;
-        max-height: 30.4px;
+        max-height: 40px;
+    }
+
+    h3{
+        font-size: 20px;
+        text-align: center;
+        max-height: 20.4px;
+        margin: 0%;
     }
 
     p{

@@ -15,7 +15,7 @@
 
     function isconnected(){
         const token = document.cookie.split(';').find((cookie) => cookie.includes('token'));
-        //console.log(token);
+        console.log(token);
         if(token){
             return true;
         }

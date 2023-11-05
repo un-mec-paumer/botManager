@@ -5,13 +5,14 @@
     
     const connexion = ref(true)
     const username = ref('');
+    const token = ref('');
 
-    function signIn(){
+    async function signIn(){
         //const submit = document.getElementById('submit') as HTMLButtonElement;
         document.cookie = "";
         console.log(username.value);
         
-        fetch(api + '/connexion', {
+        token.value = await fetch(api + '/connexion', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -19,32 +20,19 @@
             body: JSON.stringify({
                 name: username.value
             })
-        })
-        //.then((res) => res.json())
-        .then((data) => {
+        }).then((res) => res.json()).then((res) => {return res.token});
 
-            data.json().then((res) => {
+        if(token.value === "not Accept" || token.value === "not Exist"){
+            //console.log(token);
+            connexion.value = false;
+            return;
+        }
 
-                if(res.token === "non"){
-                    console.log('error');
-                    connexion.value = false;
-                    return;
-                }
-                else{
-                    console.log('ok');
-                    document.cookie = 'token=' + res.token + '; expires=Thu, 18 Dec 2025 12:00:00 UTC; path=/'
-                    window.location.href = "http://localhost:5173/index.html";
-                }
 
-                
-            });
 
-            //document.cookie = 'username=' + data.json().then((res) => res.json()) + '; expires=Thu, 18 Dec 2021 12:00:00 UTC; path=/';
-
-            //console.log(document.cookie);
-            
-        })
-        
+        document.cookie = 'token=' + token.value + '; expires=""; path=/'
+        window.location.href = "/";
+   
     }
 
 </script>
@@ -55,7 +43,7 @@
         <h1>Sign In</h1>
         <label for="username">your user name on discord</label>
         <input id="username" type="text" placeholder="Username" v-model="username"/>
-        <span v-if="!connexion">connection denied</span>
+        <span v-if="!connexion">{{ token }}</span>
         <button id="submit">Sign In</button>
     </form>
 </template>
