@@ -7,11 +7,7 @@
 
 <script lang="ts">
 
-    let user = {
-        name_user: "",
-        id_user: "",
-        pp: ""
-    }
+    let user:any;
 
     function isconnected(){
         const token = document.cookie.split(';').find((cookie) => cookie.includes('token'));
@@ -35,7 +31,12 @@
             })
         }).then((res) => res.json()).then((res) => {return res});
 
+        if(user.result == "notExist"){
+            document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+            window.location.href = "../../signIn.html";
+        }
         console.log(user);
+        
     }
 </script>
 
@@ -43,7 +44,6 @@
     <div class="container" v-if="!isConnected">
         <div class="left">
             <a href="../../index.html"><img src="../img/yuji.jpg" alt="logo"></a>
-            <a href="">contact me</a>
         </div>
         
         <div class="right">
@@ -56,7 +56,7 @@
     <div class="container" v-else>
         <div class="left">
             <a href="../../index.html"><img src="../img/yuji.jpg" alt="logo"></a>
-            <a href="">contact me</a>
+            <a href="../../contact.html">contact me</a>
         </div>
         
         <div class="right">
