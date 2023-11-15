@@ -25,25 +25,31 @@ const connected = isConnected();
   let maxSection:any = [[]]; // [[manga, manga, manga], [manga, manga, manga ]]
   // console.log(data);
   let compteur = 0;
+  let first = true;
   data.forEach((manga: Manga) => {
-    if (compteur < 3) {
-      maxSection[maxSection.length - 1].push(manga);
-      compteur++;
-    }
-    else {
+    if (compteur === 2) {
       compteur = 0;
       maxSection.push([manga]);
     }
-  })
-
-  maxSection.forEach((section:any) => {
-    if(section.length === 4){
-      const keep = section.pop();
-      maxSection.push([keep]);
+    else {
+      if(first){
+        maxSection[0].push(manga);
+        first = false;
+        return;
+      }
+      maxSection[maxSection.length - 1].push(manga);
+      compteur++;
     }
   })
-
   console.log(maxSection);
+  // maxSection.forEach((section:any) => {
+  //   if(section.length === 4){
+  //     const keep = section.pop();
+  //     maxSection.push([keep]);
+  //   }
+  // })
+
+  // console.log(maxSection);
   
  
 </script>
