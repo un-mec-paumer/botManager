@@ -21,7 +21,7 @@
     //console.log(isConnected());
 
     if(isconnected()){
-        user = await fetch(api + "/getUser",{
+        user = fetch(api + "/getUser",{
             method: "POST",
             headers: {
                 'Content-Type': 'application/json'
