@@ -23,7 +23,7 @@
         img.value = res.signedUrl;
     });
 
-    console.log(manga);
+    // console.log(manga);
 
 
     // console.log(manga.img);
@@ -32,9 +32,7 @@
         //const token = document.cookie.split(';').find((cookie) => cookie.includes('token'))?.split('=')[1];
         fetchSubData();
     }
-    else{
-        
-    }
+    
 
     // Effectuer une opération asynchrone pour obtenir la valeur de "sub"
 

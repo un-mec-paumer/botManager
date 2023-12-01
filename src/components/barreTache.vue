@@ -13,7 +13,7 @@
 
     function isconnected(){
         const token = document.cookie.split(';').find((cookie) => cookie.includes('token'));
-        console.log(token);
+        // console.log(token);
         if(token){
             return true;
         }
@@ -40,7 +40,7 @@
             document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
             window.location.href = "../../signIn.html";
         }
-        console.log(user);
+        // console.log(user);
         
     }
 </script>

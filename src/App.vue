@@ -39,9 +39,9 @@
       }
     })
   })
-  
+  //console.log("hello world");
 
-  console.log(maxSection);
+  console.log(maxSection.value);
 </script>
 
 <template>
