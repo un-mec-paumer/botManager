@@ -23,10 +23,10 @@
         img.value = res.signedUrl;
     });
 
-    // console.log();
+    console.log(manga);
 
 
-    console.log(manga.img);
+    // console.log(manga.img);
     
     if (isconnneced) {
         //const token = document.cookie.split(';').find((cookie) => cookie.includes('token'))?.split('=')[1];

@@ -1,5 +1,6 @@
 <script setup lang="ts">
     import { api } from '../Api';
+    import { ref } from 'vue';
     const props = defineProps<{ isConnected:boolean }>()
 
     //console.log(test.isConnected);
@@ -8,6 +9,7 @@
 <script lang="ts">
 
     let user:any;
+    const pp = ref("");
 
     function isconnected(){
         const token = document.cookie.split(';').find((cookie) => cookie.includes('token'));
@@ -29,7 +31,10 @@
             body: JSON.stringify({
                 token: document.cookie.split(';').find((cookie) => cookie.includes('token'))?.split('=')[1]
             })
-        }).then((res) => res.json()).then((res) => {return res});
+        }).then((res) => res.json()).then((res) => {
+            pp.value = res.pp;
+            return res;
+       });
 
         if(user.result == "notExist"){
             document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
@@ -63,7 +68,7 @@
             <a href="https://fr-scan.com">scan site</a>
             <!-- <a href="https://fr-scan.com">add a discord account</a> -->
             <a href="../../profil.html">my account</a>
-            <img v-bind:src="user.pp" alt="">
+            <img v-bind:src="pp" alt="">
         </div>
     </div>
 
