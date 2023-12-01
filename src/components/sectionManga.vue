@@ -6,7 +6,7 @@
     const { manga, isconnneced } = defineProps<{ manga: Manga, isconnneced: boolean }>();
     const sub = ref({sub:false});
     const lien = ref("https://fr-scan.com/manga/" + manga.name_manga + "/");
-    //export { sub };
+    //export { sub }
 
     const img = ref("")
 
