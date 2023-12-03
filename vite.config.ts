@@ -3,10 +3,11 @@ import vue from '@vitejs/plugin-vue'
 import * as dotenv from 'dotenv'
 
 dotenv.config()
+const { PORT } = process.env
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [vue()],
   server: {
-    port:3000 || parseInt(process.env.PORT),
+    port:3000 || parseInt(PORT as string),
   },
 })
