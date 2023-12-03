@@ -9,7 +9,7 @@ export default defineConfig({
   plugins: [vue()],
   server: {
     port: PORT || 3000,
-    open: true,
+    //open: true,
     headers: {
       'Access-Control-Allow-Origin': '*',
       'Access-Control-Allow-Methods': 'GET POST',
