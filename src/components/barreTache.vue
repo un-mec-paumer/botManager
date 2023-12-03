@@ -32,14 +32,18 @@
                 token: document.cookie.split(';').find((cookie) => cookie.includes('token'))?.split('=')[1]
             })
         }).then((res) => res.json()).then((res) => {
+            console.log(res);
             pp.value = res.pp;
-            return res;
-       });
 
-        if(user.result == "notExist"){
-            document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-            window.location.href = "../../signIn.html";
-        }
+            if(res.result == "notExist"){
+                console.log("notExist");
+                document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+                window.location.href = "../../signIn.html";
+            }   
+            return res;
+        });
+
+        
         // console.log(user);
         
     }
