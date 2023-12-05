@@ -2,7 +2,7 @@
 import { ref, onMounted } from 'vue';
 import { Manga } from '../manga';
 import { api } from '../Api';
-
+//build de merde vate faire foutre
 const { manga, isConnected, Token } = defineProps<{ manga: Manga, isConnected: boolean, Token:string}>();
 const sub = ref({ sub: false });
 const lien = ref("https://fr-scan.com/manga/" + manga.name_manga + "/");
