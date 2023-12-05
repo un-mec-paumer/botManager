@@ -4,9 +4,7 @@
     const props = defineProps<{ isConnected:boolean }>()
 
     //console.log(test.isConnected);
-</script>
 
-<script lang="ts">
 
     let user:any;
     const pp = ref("");

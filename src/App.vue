@@ -5,9 +5,9 @@
   import { api } from './Api';
   import { ref } from 'vue';
   // const connected = false;
-
+  let token = "";
   function isConnected(){
-    const token = document.cookie.split(';').find((cookie) => cookie.includes('token'));
+    token = document.cookie.split(';').find((cookie) => cookie.includes('token')) || "";
     //console.log(token);
     if(token){
       return true;
@@ -47,7 +47,7 @@
 <template>
   <barreTache :is-connected="connected" />
   <div class="containerMax" v-for="sectionManga in maxSection">
-    <sectionManga v-for="manga in sectionManga" :manga="manga" :isconnneced="connected"/>
+    <sectionManga v-for="manga in sectionManga" :manga="manga" :isConnected="connected" :-token="token"/>
   </div>
   <!-- <div class="containerMax">
     <sectionManga v-for="manga in maxSection[0]" :manga="manga" :isconnneced="connected"/>

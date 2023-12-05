@@ -1,95 +1,76 @@
 <script setup lang="ts">
-    import { Manga } from '../manga';
-    import { api } from '../Api';
-    import { ref } from 'vue';
+import { ref, onMounted } from 'vue';
+import { Manga } from '../manga';
+import { api } from '../Api';
 
-    const { manga, isconnneced } = defineProps<{ manga: Manga, isconnneced: boolean }>();
-    const sub = ref({sub:false});
-    const lien = ref("https://fr-scan.com/manga/" + manga.name_manga + "/");
-    //export { sub }
+const { manga, isConnected, Token } = defineProps<{ manga: Manga, isConnected: boolean, Token:string}>();
+const sub = ref({ sub: false });
+const lien = ref("https://fr-scan.com/manga/" + manga.name_manga + "/");
+const img = ref("");
 
-    const img = ref("")
+onMounted(async () => {
+  // Fetch manga image
+  const imgResponse = await fetch(api + "/mangaImg", {
+    method: "POST",
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      name: manga.name_manga
+    })
+  });
+  const imgData = await imgResponse.json();
+  img.value = imgData.signedUrl;
 
-    fetch(api + "/mangaImg", {
-        method: "POST",
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-            name: manga.name_manga
-        })
-    }).then((res) => res.json()).then((res) => {
-        // console.log(res);
-        img.value = res.signedUrl;
+  // Fetch subscription data if connected
+  if (isConnected) {
+    const subResponse = await fetch(api + "/getSub", {
+      method: "POST",
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        id_manga: manga.id_manga,
+        token: Token
+      })
     });
+    sub.value = await subResponse.json();
+  }
+});
 
-    // console.log(manga);
+async function addSub() {
+  console.log("add sub");
+  const res = await fetch(api + "/addSub", {
+    method: "POST",
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      id_manga: manga.id_manga,
+      token: document.cookie.split(';').find((cookie) => cookie.includes('token'))?.split('=')[1]
+    })
+  });
+  console.log(res);
+  sub.value.sub = !!res;
+}
 
-
-    // console.log(manga.img);
-    
-    if (isconnneced) {
-        //const token = document.cookie.split(';').find((cookie) => cookie.includes('token'))?.split('=')[1];
-        fetchSubData();
-    }
-    
-
-    // Effectuer une opération asynchrone pour obtenir la valeur de "sub"
-
-    async function fetchSubData() {
-        const response = await fetch(api + "/getSub", {
-            method: "POST",
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                id_manga: manga.id_manga,
-                token: document.cookie.split(';').find((cookie) => cookie.includes('token'))?.split('=')[1]
-            })
-        });
-
-        //console.log(response.json().then((res) => console.log(res)));
-        sub.value = await response.json().then((res) => {return res});
-    }
-
-    async function addSub() {
-        console.log("add sub");
-        const res = await fetch(api + "/addSub", {
-            method: "POST",
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                id_manga: manga.id_manga,
-                token: document.cookie.split(';').find((cookie) => cookie.includes('token'))?.split('=')[1]
-            })
-        }).then((res) => res.json()).then((res) => {return res});
-
-        console.log(res);
-        sub.value.sub = res;
-    }
-
-    async function removeSub() {
-        console.log("remove sub");
-        const res = await fetch(api + "/deleteSub", {
-            method: "POST",
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                id_manga: manga.id_manga,
-                token: document.cookie.split(';').find((cookie) => cookie.includes('token'))?.split('=')[1]
-            })
-        }).then((res) => res.json()).then((res) => {return res});
-
-        console.log(res);
-        sub.value.sub = !res;
-    }
-
-    //return { sub, manga, isconnneced };
-    //console.log(document.cookie.split(';').find((cookie) => cookie.includes('token'))?.split('=')[1]);
-    //console.log(sub.value.sub);
+async function removeSub() {
+  console.log("remove sub");
+  const res = await fetch(api + "/deleteSub", {
+    method: "POST",
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      id_manga: manga.id_manga,
+      token: document.cookie.split(';').find((cookie) => cookie.includes('token'))?.split('=')[1]
+    })
+  });
+  console.log(res);
+  sub.value.sub = !res;
+}
 </script>
+
 
 
 
@@ -102,8 +83,8 @@
         <p> {{ manga.synopsis }}</p>
         <a :href="lien">read more</a>
 
-        <button v-if="isconnneced && !sub.sub" @click="addSub">add subscride</button>
-        <button v-else-if="isconnneced && sub.sub" @click="removeSub">remove subscride</button>
+        <button v-if="isConnected && !sub.sub" @click="addSub">add subscride</button>
+        <button v-else-if="isConnected && sub.sub" @click="removeSub">remove subscride</button>
     </div>
 </template>
 
