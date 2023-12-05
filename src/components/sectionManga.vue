@@ -7,7 +7,9 @@ const { manga, isConnected, Token } = defineProps<{ manga: Manga, isConnected: b
 const sub = ref({ sub: false });
 const lien = ref("https://fr-scan.com/manga/" + manga.name_manga + "/");
 const img = ref("");
-
+console.log(manga);
+console.log(isConnected);
+console.log(Token);
 onMounted(async () => {
   // Fetch manga image
   const imgResponse = await fetch(api + "/mangaImg", {
@@ -47,7 +49,7 @@ async function addSub() {
     },
     body: JSON.stringify({
       id_manga: manga.id_manga,
-      token: document.cookie.split(';').find((cookie) => cookie.includes('token'))?.split('=')[1]
+      token: Token
     })
   });
   console.log(res);
@@ -63,7 +65,7 @@ async function removeSub() {
     },
     body: JSON.stringify({
       id_manga: manga.id_manga,
-      token: document.cookie.split(';').find((cookie) => cookie.includes('token'))?.split('=')[1]
+      token: Token
     })
   });
   console.log(res);
@@ -97,6 +99,9 @@ async function removeSub() {
         background-color: #d9d9d9;
         border-radius: 10px;
         margin-top: 50px;
+        margin-bottom: 0px;
+        margin-left: 25px;
+        margin-right: 25px;
         align-items: center;
     }
 

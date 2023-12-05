@@ -15,7 +15,7 @@
     return false;
   }
 
-  const maxSection = ref([[]] as Array<Array<Manga>>) // [[manga, manga, manga], [manga, manga, manga]]
+  const maxSection = ref([] as Array<Manga>) // [[manga, manga, manga], [manga, manga, manga]]
   // console.log(data);
   let compteur = 0;
   let first = true;
@@ -23,21 +23,10 @@
 
   fetch(api + '/mangas').then((res) => res.json()).then((res) => {
     res.forEach((manga: Manga) => {
-      // console.log(manga);
-      if (compteur === 2) {
-        compteur = 0;
-        maxSection.value.push([manga]);
-      }
-      else {
-        if(first){
-          maxSection.value[0].push(manga);
-          first = false;
-          return;
-        }
-        maxSection.value[maxSection.value.length - 1].push(manga);
-        compteur++;
-      }
+      maxSection.value.push(manga);
     })
+
+    //maxSection.value.reverse();
   })
   //console.log("hello world");
 
@@ -46,20 +35,20 @@
 
 <template>
   <barreTache :is-connected="connected" />
-  <div class="containerMax" v-for="sectionManga in maxSection">
-    <sectionManga v-for="manga in sectionManga" :manga="manga" :isConnected="connected" :-token="token"/>
+  <div class="containerMax" >
+    <sectionManga v-for="manga in maxSection" :manga="manga" :isConnected="connected" :Token="token"/>
   </div>
-  <!-- <div class="containerMax">
-    <sectionManga v-for="manga in maxSection[0]" :manga="manga" :isconnneced="connected"/>
-  </div> -->
 </template>
 
 <style scoped>
 .containerMax {
   display: flex;
-  justify-content: space-around;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
   flex-wrap: wrap;
-  margin-top: 50px;
+
+  width: 100%;
 }
 
 </style>

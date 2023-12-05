@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "vite",
     "build": "vue-tsc && vite build",
-    "start": "vite"
+    "start": "vite preview"
   },
   "dependencies": {
     "dotenv": "^16.3.1",
