@@ -36,7 +36,7 @@
 <template>
   <barreTache :is-connected="connected" />
   <div class="containerMax" >
-    <sectionManga v-for="manga in maxSection" :manga="manga" :isConnected="connected" :Token="token"/>
+    <sectionManga v-for="manga in maxSection" :manga="manga" :isConnected="connected"/>
   </div>
 </template>
 
@@ -51,4 +51,19 @@
   width: 100%;
 }
 
+.containermanga{
+  display: flex;
+  flex-direction: column;
+  width: 360px;
+  height: 575px;
+  background-color: #d9d9d9;
+  border-radius: 10px;
+  margin-top: 50px;
+  margin-bottom: 0px;
+  margin-left: 25px;
+  margin-right: 25px;
+  align-items: center;
+}
+
 </style>
+./Manga

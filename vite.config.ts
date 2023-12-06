@@ -12,7 +12,7 @@ export default defineConfig({
   ],
   server: {
     port: Number(process.env.PORT) || 3000,
-    open: false,
+    open: true,
     headers: {
       'Access-Control-Allow-Origin': '*',
       'Access-Control-Allow-Methods': 'GET POST',
@@ -27,6 +27,7 @@ export default defineConfig({
         profil: path.resolve(__dirname, "profil.html"),
         contact: path.resolve(__dirname, "contact.html"),
         signIn: path.resolve(__dirname, "signIn.html"),
+        
       },
     },
   },

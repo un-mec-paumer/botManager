@@ -2,14 +2,14 @@
 import { ref, onMounted } from 'vue';
 import { Manga } from '../manga';
 import { api } from '../Api';
-//build de merde vate faire foutre
-const { manga, isConnected, Token } = defineProps<{ manga: Manga, isConnected: boolean, Token:string}>();
+
+const { manga, isConnected } = defineProps<{ manga: Manga, isConnected: boolean}>();
 const sub = ref({ sub: false });
-const lien = ref("https://fr-scan.com/manga/" + manga.name_manga + "/");
+const loca = !location.href.includes("manga.html");
+const lien = ref(loca ? "../../manga.html?id=" + manga.id_manga :"https://fr-scan.com/manga/" + manga.name_manga + "/");
 const img = ref("");
-console.log(manga);
-console.log(isConnected);
-console.log(Token);
+const Token = document.cookie.split(';').find((cookie) => cookie.includes('token'))?.split('=')[1] ?? "";
+
 onMounted(async () => {
   // Fetch manga image
   const imgResponse = await fetch(api + "/mangaImg", {
@@ -77,13 +77,13 @@ async function removeSub() {
 
 
 <template>
-    <div class="container">
+    <div class="containermanga">
         <img id="img" v-bind:src="img" alt="manga">
         <h2>{{ manga.name_manga.replaceAll("-"," ") }}</h2>
         <label for="chap">chapitre:</label>
         <h3 id="chap">{{ manga.chapitre_manga }}</h3>
         <p> {{ manga.synopsis }}</p>
-        <a :href="lien">read more</a>
+        <a :href="lien" >{{ loca ? 'read more' : 'link to manga scan' }}</a>
 
         <button v-if="isConnected && !sub.sub" @click="addSub">add subscride</button>
         <button v-else-if="isConnected && sub.sub" @click="removeSub">remove subscride</button>
@@ -91,29 +91,30 @@ async function removeSub() {
 </template>
 
 <style scoped>
-    .container{
-        display: flex;
-        flex-direction: column;
-        width: 360px;
-        height: 575px;
-        background-color: #d9d9d9;
-        border-radius: 10px;
-        margin-top: 50px;
-        margin-bottom: 0px;
-        margin-left: 25px;
-        margin-right: 25px;
-        align-items: center;
+    .containermanga{
+      display: flex;
+      flex-direction: column;
+      width: auto;
+      height: 575px;
+      background-color: #d9d9d9;
+      border-radius: 10px;
+      margin-top: 50px;
+      margin-bottom: 0px;
+      margin-left: 25px;
+      margin-right: 25px;
+      align-items: center;
+      justify-content: space-evenly;
     }
 
     button {
-        /* margin: 0.5rem; */
-        padding: 0.5rem;
-        border: 1px solid #ccc;
-        border-radius: 0.25rem;
-        /* width: 100%; */
-        margin-top: 15px;
-        margin-bottom: 15px;
-        font-family: Bruno Ace;
+      /* margin: 0.5rem; */
+      padding: 0.5rem;
+      border: 1px solid #ccc;
+      border-radius: 0.25rem;
+      /* width: 100%; */
+      margin-top: 15px;
+      margin-bottom: 15px;
+      font-family: Bruno Ace;
     }
 
     button:hover {
@@ -149,4 +150,4 @@ async function removeSub() {
         overflow:auto;
     }
 
-</style>
+</style>../Manga

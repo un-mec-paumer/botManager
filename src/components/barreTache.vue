@@ -68,7 +68,7 @@
         
         <div class="right">
             <a href="https://fr-scan.com">scan site</a>
-            <!-- <a href="https://fr-scan.com">add a discord account</a> -->
+            <a href="../../addmanga.html"> add a manga</a>
             <a href="../../profil.html">my account</a>
             <img v-bind:src="pp" alt="">
         </div>
