@@ -1,5 +1,5 @@
 <script setup lang="ts">
-  import { Manga } from './manga';
+import { Mangatype } from './mangatype';
   import sectionManga from './components/sectionManga.vue';
   import barreTache from './components/barreTache.vue';
   import { api } from './Api';
@@ -15,14 +15,14 @@
     return false;
   }
 
-  const maxSection = ref([] as Array<Manga>) // [[manga, manga, manga], [manga, manga, manga]]
+  const maxSection = ref([] as Array<Mangatype>) // [[manga, manga, manga], [manga, manga, manga]]
   // console.log(data);
   let compteur = 0;
   let first = true;
   const connected = isConnected();
 
   fetch(api + '/mangas').then((res) => res.json()).then((res) => {
-    res.forEach((manga: Manga) => {
+    res.forEach((manga: Mangatype) => {
       maxSection.value.push(manga);
     })
 

@@ -27,7 +27,7 @@ export default defineConfig({
         profil: path.resolve(__dirname, "profil.html"),
         contact: path.resolve(__dirname, "contact.html"),
         signIn: path.resolve(__dirname, "signIn.html"),
-        
+        manga: path.resolve(__dirname, "manga.html"),
       },
     },
   },

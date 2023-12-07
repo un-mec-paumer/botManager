@@ -1,4 +1,4 @@
-export declare type Manga = {
+export declare type Mangatype = {
     id_manga: number;
     name_manga: string;
     chapitre_manga: number;

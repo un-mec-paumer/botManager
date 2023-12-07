@@ -1,9 +1,10 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue';
-import { Manga } from '../manga';
+import { Mangatype } from '../mangatype';
 import { api } from '../Api';
 
-const { manga, isConnected } = defineProps<{ manga: Manga, isConnected: boolean}>();
+
+const { manga, isConnected } = defineProps<{ manga: Mangatype, isConnected: boolean}>();
 const sub = ref({ sub: false });
 const loca = !location.href.includes("manga.html");
 const lien = ref(loca ? "../../manga.html?id=" + manga.id_manga :"https://fr-scan.com/manga/" + manga.name_manga + "/");
@@ -150,4 +151,4 @@ async function removeSub() {
         overflow:auto;
     }
 
-</style>../Manga
+</style>
