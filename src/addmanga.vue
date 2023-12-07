@@ -3,7 +3,7 @@
     import { api } from './Api';
     import { ref } from 'vue';
     const isConnected = document.cookie.split(';').find((cookie) => cookie.includes('token')) ? true : false;
-    const token = document.cookie.split(';').find((cookie) => cookie.includes('token'))?.split('=')[1] || '';
+    const token = document.cookie.split(';').find((cookie) => cookie.includes('token'))?.split('=')[1] || ''
     const name_manga = ref('');
     const chapter = ref();
     const isPage = ref(false);
