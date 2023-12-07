@@ -12,7 +12,7 @@ export default defineConfig({
   ],
   server: {
     port: Number(process.env.PORT) || 3000,
-    open: true,
+    open: false,
     headers: {
       'Access-Control-Allow-Origin': '*',
       'Access-Control-Allow-Methods': 'GET POST',
